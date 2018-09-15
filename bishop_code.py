@@ -40,7 +40,7 @@ def bishop_base(bottom_base_radius, top_base_radius,
 	lofts.append(loft_top)
 	App.ActiveDocument.recompute() 
 	
-	""" loft_top creates the loft between the upper and base circles of ring."""
+	# loft_top creates the loft between the upper and base circles of ring.
 
 	loft_bottom = App.ActiveDocument.addObject('Part::Loft','Loft')
 	loft_bottom.Sections=[base_1[3], base_1[4] ]
@@ -49,26 +49,26 @@ def bishop_base(bottom_base_radius, top_base_radius,
 	loft_bottom.Closed=False
 	lofts.append(loft_bottom)
 	App.ActiveDocument.recompute()
-	""" loft_bottom creates the loft between the base and bottom cirle of the ring."""
+	# loft_bottom creates the loft between the base and bottom cirle of the ring.
 
 	ring = App.ActiveDocument.addObject('Part::Compound','ring')
 	ring.Links = lofts
 	ring.Placement.Base.z = ring_height_from_bottom
 
-	""" The above ring join the above to lofts and make a compound."""
+	# The above ring join the above to lofts and make a compound.
 
 	
 	head = App.ActiveDocument.addObject('Part::Compound','head')
 	head.Links = (base_1[5], base_1[6])
 	head.Placement.Base.z = (mid_height + top_base_radius)
 
-	""" Head joins the top sphere and the cone which makes the head of the bishop."""
+	# Head joins the top sphere and the cone which makes the head of the bishop.
 
 	hole = App.activeDocument().addObject("Part::Cut","Cut")
  	hole.Base = App.activeDocument().head
  	hole.Tool = App.activeDocument().Box
 
- 	""" It makes the cut in bishop head"""
+ 	# It makes the cut in bishop head.
 
  	compound = App.activeDocument().addObject("Part::Compound","Compound")
 	compound.Links = [App.activeDocument().Cone,
@@ -79,7 +79,7 @@ def bishop_base(bottom_base_radius, top_base_radius,
 	compound.ViewObject.DisplayMode = u"Shaded"
 	FreeCADGui.activeDocument().activeView().viewRight()
 
-	""" We join all the parts of bishop and store it in one compound."""
+	# We join all the parts of bishop and store it in one compound.
 
  	App.ActiveDocument.recompute()
 	return (ring, head, hole, compound)
@@ -103,6 +103,7 @@ def make_bishop_base(radius1, radius2, height1,
 	head_radius and head_height is the dimensions of bishop head.
 	top_ball_radius is the radius of bishop top ball.
 	cut_length, cut_width and cut_height are the dimensions of bishop cut."""
+	
 	Cone = App.ActiveDocument.addObject("Part::Cone","Cone")
 	App.ActiveDocument.ActiveObject.Label = "Cone"
 	Cone.Radius1 = radius1
@@ -111,7 +112,7 @@ def make_bishop_base(radius1, radius2, height1,
 	Cone.Placement.Base.z = 1
 	App.ActiveDocument.recompute()
 
-	""" It makes the base of bishop."""
+	# It makes the base of bishop.
 	
 
 	Cone001 = App.ActiveDocument.addObject("Part::Cone","Cone")
@@ -123,7 +124,7 @@ def make_bishop_base(radius1, radius2, height1,
 	Cone001.Placement.Base.z = height1
 	App.ActiveDocument.recompute()
 
-	""" Create the middle of bishop."""
+	# Create the middle of bishop.
 	
 
 	circle1 = App.ActiveDocument.addObject("Part::Circle","Circle")
@@ -132,7 +133,7 @@ def make_bishop_base(radius1, radius2, height1,
  	circle1.Placement.Base.z = -height4
  	App.ActiveDocument.recompute()
 
- 	"""It makes the above the circle for ring."""
+ 	# It makes the above the circle for ring.
 
 	circle2 = App.ActiveDocument.addObject("Part::Circle","Circle")
  	App.ActiveDocument.Circle.Label = "circle2"
@@ -142,7 +143,7 @@ def make_bishop_base(radius1, radius2, height1,
  	circle2.Placement.Base.x = 0
  	App.ActiveDocument.recompute()
 
- 	""" It makes the base circle for ring."""
+ 	# It makes the base circle for ring.
 	
 	circle3 = App.ActiveDocument.addObject("Part::Circle","Circle")
  	App.ActiveDocument.Circle.Label = "circle3"
@@ -150,7 +151,7 @@ def make_bishop_base(radius1, radius2, height1,
  	circle3.Placement.Base.z = height5
  	App.ActiveDocument.recompute()
 
- 	""" It makes the bottom circle for ring."""
+ 	# It makes the bottom circle for ring.
 
  	sphere=App.ActiveDocument.addObject("Part::Sphere","Sphere")
 	cone = App.ActiveDocument.addObject("Part::Cone","Cone")
@@ -163,7 +164,7 @@ def make_bishop_base(radius1, radius2, height1,
 	sphere.Angle2 = 0.00 
 	App.ActiveDocument.recompute()
 
-	""" It makes the base sphere for bishop head."""
+	# It makes the base sphere for bishop head.
 
 	sphere1=App.ActiveDocument.addObject("Part::Sphere","Sphere")
 	App.ActiveDocument.ActiveObject.Label = "Sphere1"
@@ -171,7 +172,7 @@ def make_bishop_base(radius1, radius2, height1,
 	sphere1.Placement.Base.z = height6+height2+height1+1
 	App.ActiveDocument.recompute()
 
-	""" It makes the top sphere for bishop."""
+	# It makes the top sphere for bishop.
 
 	cube = App.ActiveDocument.addObject("Part::Box","Box")
 	App.ActiveDocument.ActiveObject.Label = "Cube"
