@@ -1,36 +1,37 @@
+
 import FreeCAD as App
 import FreeCADGui
 import Part
 
 
 def bishop_base(bottom_base_radius, top_base_radius,
-				base_height, mid_height,  mid_top_radius, 
-				mid_bottom_radius, ring_height_from_bottom,
-				top_radius, base_radius, 
-				top_ring_height, bottom_ring_height,
-				head_radius,head_height, top_ball_radius,
-				cut_length, cut_width, cut_height,
-				cut_height_from_bottom):
+		base_height, mid_height,  mid_top_radius,
+		mid_bottom_radius, ring_height_from_bottom,
+		top_radius, base_radius,
+		top_ring_height, bottom_ring_height,
+		head_radius,head_height, top_ball_radius,
+		cut_length, cut_width, cut_height,
+		cut_height_from_bottom):
 	""" First time while triying this code:
 	Give the dimension as written: (5, 4, 3, 18, 3, 2, 16, 2.5, 3, 1, 1, 4, 6, 1, 13, 2, 7)"""
 	base_1 = make_bishop_base(bottom_base_radius,top_base_radius,
-                              base_height, mid_height,
-							  mid_top_radius, mid_bottom_radius,
-							  ring_height_from_bottom,
-			top_radius, base_radius, 
-			top_ring_height,
-			bottom_ring_height,
-			head_radius,head_height, 
-		    top_ball_radius,
-			cut_length,cut_width,
-			cut_height,
-			cut_height_from_bottom,
-			App.Placement(App.Vector(0,0,0),App.Rotation(App.Vector(0,0,1),0)))
+				  base_height, mid_height,
+				  mid_top_radius, mid_bottom_radius,
+				  ring_height_from_bottom,
+				  top_radius, base_radius,
+				  top_ring_height,
+				  bottom_ring_height,
+				  head_radius,head_height,
+		    		  top_ball_radius,
+				  cut_length,cut_width,
+				  cut_height,
+				  cut_height_from_bottom,
+				  App.Placement(App.Vector(0,0,0),App.Rotation(App.Vector(0,0,1),0)))
 
 	base_1[2].ViewObject.Visibility = False
 	base_1[3].ViewObject.Visibility = False
 	base_1[4].ViewObject.Visibility = False
-		
+
 	lofts = []
 	loft_top = App.ActiveDocument.addObject('Part::Loft','Loft')
 	loft_top.Sections=(base_1[2], base_1[3] )
@@ -38,8 +39,8 @@ def bishop_base(bottom_base_radius, top_base_radius,
 	loft_top.Ruled=True
 	loft_top.Closed=False
 	lofts.append(loft_top)
-	App.ActiveDocument.recompute() 
-	
+	App.ActiveDocument.recompute()
+
 	# loft_top creates the loft between the upper and base circles of ring.
 
 	loft_bottom = App.ActiveDocument.addObject('Part::Loft','Loft')
@@ -57,7 +58,7 @@ def bishop_base(bottom_base_radius, top_base_radius,
 
 	# The above ring join the above to lofts and make a compound.
 
-	
+
 	head = App.ActiveDocument.addObject('Part::Compound','head')
 	head.Links = (base_1[5], base_1[6])
 	head.Placement.Base.z = (mid_height + top_base_radius)
@@ -72,10 +73,10 @@ def bishop_base(bottom_base_radius, top_base_radius,
 
  	compound = App.activeDocument().addObject("Part::Compound","Compound")
 	compound.Links = [App.activeDocument().Cone,
-					  App.activeDocument().Cone001,
-					  App.activeDocument().Sphere001,
-					  App.activeDocument().ring,
-					  App.activeDocument().Cut] 
+			  App.activeDocument().Cone001,
+			  App.activeDocument().Sphere001,
+			  App.activeDocument().ring,
+			  App.activeDocument().Cut]
 	compound.ViewObject.DisplayMode = u"Shaded"
 	FreeCADGui.activeDocument().activeView().viewRight()
 
@@ -86,13 +87,13 @@ def bishop_base(bottom_base_radius, top_base_radius,
 
 
 
-def make_bishop_base(radius1, radius2, height1, 
-					 height2, radius3,radius4,  
-					 height3, radius5, radius6, 
-					 height4, height5, radius7,
-					 height6, radius8, length,
-					 width, height7, height8, 
-					 placement):
+def make_bishop_base(radius1, radius2, height1,
+		     height2, radius3,radius4,
+		     height3, radius5, radius6,
+		     height4, height5, radius7,
+		     height6, radius8, length,
+		     width, height7, height8,
+		     placement):
 	""" In the above function bottom_base_radius, top_base_radius
 	and base_height are the dimensions of bishop base. mid_height, mid_top_radius,
 	mid_bottom_radius are the dimensions of the bishop middle or
@@ -103,7 +104,7 @@ def make_bishop_base(radius1, radius2, height1,
 	head_radius and head_height is the dimensions of bishop head.
 	top_ball_radius is the radius of bishop top ball.
 	cut_length, cut_width and cut_height are the dimensions of bishop cut."""
-	
+
 	Cone = App.ActiveDocument.addObject("Part::Cone","Cone")
 	App.ActiveDocument.ActiveObject.Label = "Cone"
 	Cone.Radius1 = radius1
@@ -113,7 +114,6 @@ def make_bishop_base(radius1, radius2, height1,
 	App.ActiveDocument.recompute()
 
 	# It makes the base of bishop.
-	
 
 	Cone001 = App.ActiveDocument.addObject("Part::Cone","Cone")
 	App.ActiveDocument.ActiveObject.Label = "Cone"
@@ -125,7 +125,6 @@ def make_bishop_base(radius1, radius2, height1,
 	App.ActiveDocument.recompute()
 
 	# Create the middle of bishop.
-	
 
 	circle1 = App.ActiveDocument.addObject("Part::Circle","Circle")
  	App.ActiveDocument.Circle.Label = "circle1"
@@ -144,7 +143,7 @@ def make_bishop_base(radius1, radius2, height1,
  	App.ActiveDocument.recompute()
 
  	# It makes the base circle for ring.
-	
+
 	circle3 = App.ActiveDocument.addObject("Part::Circle","Circle")
  	App.ActiveDocument.Circle.Label = "circle3"
  	circle3.Radius = radius5
@@ -161,7 +160,7 @@ def make_bishop_base(radius1, radius2, height1,
 	cone.Radius1 = radius7
 	cone.Height = height6
 	sphere.Radius = radius7
-	sphere.Angle2 = 0.00 
+	sphere.Angle2 = 0.00
 	App.ActiveDocument.recompute()
 
 	# It makes the base sphere for bishop head.
