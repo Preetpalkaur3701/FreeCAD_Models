@@ -2,8 +2,19 @@
 This repo contains the 3D models created in FreeCAD using Python script
 
 ## Requirement
+- FreeCAD: https://github.com/FreeCAD/FreeCAD
 
-### Installation of FreeCAD: https://github.com/FreeCAD/FreeCAD
+## Installation
+1. `$ cd ~/.FreeCAD/Mod`
+1. `$ git clone https://github.com/Preetpalkaur3701/FreeCAD_Models.git`
+
+## Usage
+1. Run FreeCAD as `$ FreeCAD`
+1. In Python console of FreeCAD run below commands:
+```
+from FreeCAD_Models import bishop_code
+bishop_code.make_bishop_base(5, 4, 2, 20, 3, 2, 16, 2, 4, 1, 1)
+```
 
 #### Bishop View:
 
